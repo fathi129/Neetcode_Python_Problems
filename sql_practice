@@ -1,0 +1,44 @@
+create table employees(
+emp_id integer not null primary key,
+first_name varchar(255),
+	last_name varchar(255),
+	salary integer,
+	department_id integer,
+	foreign key (department_id) references departments(dept_id)
+);
+
+create table departments
+(dept_id integer not null primary key, 
+dept_name varchar(255));
+
+insert into departments (dept_id,dept_name) 
+values (1,'Analyst'),
+		(2,'Sales'),
+		(3,'Development'),
+		(4,'Quality');
+		
+
+insert into employees(emp_id,first_name,last_name,salary,department_id)
+values (1,'Nasreen','Habeeb',80000,1),
+	(2,'Aydin','Ashiq',90000,2),
+	(3,'Ashiq','Jamal',100000,3),
+	(4,'Adeena','Ashiq',70000,4);
+insert into employees(emp_id,first_name,last_name,salary,department_id)
+values (5,'Zaahid','Abu',60000,1);
+insert into employees(emp_id,first_name,last_name,salary,department_id)
+values (6,'Humza','Abu',70000,1)
+insert into employees(emp_id,first_name,last_name,salary,department_id)
+values (7,'Ibrahim','Subhaan',50000,1)
+	
+
+select * from departments;
+select * from employees;
+
+with cte as
+(select salary,dept_name,first_name,
+ DENSE_RANK() OVER(ORDER BY salary asc) as rank
+FROM employees as e inner JOIN departments as d ON 
+ e.department_id = d.dept_id WHERE dept_name = 'Analyst')
+ 
+select salary,dept_name,first_name from cte where rank = 1;
+

@@ -1,0 +1,11 @@
+import numpy as np
+a= input()
+b= input()
+A = np.array(a)
+B = np.array(b)
+print(a)
+print(b)
+inner_res = np.inner(A,B)
+print("Inner product",inner_res)
+outer_res = np.outer(A,B)
+print("outer product",outer_res)
